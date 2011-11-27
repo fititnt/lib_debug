@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<extension 
+    type="library" 
+    version="1.7" 
+    method="upgrade"
+    >
+    <libraryname>DEBUG</libraryname>
+    <name>JDLIB_NAME</name>
+    <description>JDLIB_DESCRIPTION</description>
+    <creationDate>2011-11-26</creationDate>
+    <author>Emerson Rocha Luiz</author>
+    <authorEmail>emerson@webdesign.eng.br</authorEmail>
+    <authorUrl>http://fititnt.org</authorUrl>
+    <copyright>Copyright (C) 2011 Webdesign Assessoria em Tecniligia da Informacao. All rights reserved.</copyright>
+    <license>GNU General Public License version 3. See license.txt</license>
+    <version>0.1alpha</version>
+    <files>
+        <file>debug.php</file>
+        <file>debug.xml</file>
+        <file>index.html</file>
+        <file>license.txt</file>
+        <file>loader.php</file>
+        <file>readme.txt</file>
+        <folder>benchmark</folder>
+        <folder>language</folder>        
+        <folder>log</folder>
+        <!--<folder>doc</folder>-->
+    </files>
+    <languages folder="language">
+        <language tag="en-GB">en-GB/en-GB.lib_debug.ini</language>
+        <language tag="en-GB">en-GB/en-GB.lib_debug.sys.ini</language>
+    </languages>
+</extension>
