@@ -80,10 +80,15 @@ class JDLibLog {
 
     /**
      * Debug information
+     * $aditionalInfo = "\e" is for scape char.
+     * 
      * @return void
      */
-    public function breakpoint($message) {
+    public function breakpoint($message, $aditionalInfo = "\e") {
         if ($this->level >= 9) {
+            if ($aditionalInfo != "\e") {
+                $message = $this->_printfSpecial($message, $aditionalInfo);
+            }
             $this->log->addEntry(array('priority' => 128, 'comment' => $message));
         }
     }
@@ -105,8 +110,11 @@ class JDLibLog {
      * 
      * @return void
      */
-    public function debug($message) {
+    public function debug($message, $aditionalInfo = "\e") {
         if ($this->level >= 8) {
+            if ($aditionalInfo != "\e") {
+                $message = $this->_printfSpecial($message, $aditionalInfo);
+            }
             $this->log->addEntry(array('priority' => 128, 'comment' => $message));
         }
     }
@@ -115,8 +123,11 @@ class JDLibLog {
      * Info information
      * @return void
      */
-    public function info($message) {
+    public function info($message, $aditionalInfo = "\e") {
         if ($this->level >= 7) {
+            if ($aditionalInfo != "\e") {
+                $message = $this->_printfSpecial($message, $aditionalInfo);
+            }
             $this->log->addEntry(array('priority' => 64, 'comment' => $message));
         }
     }
@@ -125,18 +136,24 @@ class JDLibLog {
      * Notice information
      * @return void
      */
-    public function notice($message) {
+    public function notice($message, $aditionalInfo = "\e") {
         if ($this->level >= 6) {
+            if ($aditionalInfo != "\e") {
+                $message = $this->_printfSpecial($message, $aditionalInfo);
+            }
             $this->log->addEntry(array('priority' => 32, 'comment' => $message));
         }
     }
 
     /**
-     * Error information
+     * Warning information
      * @return void
      */
-    public function warning($message) {
+    public function warning($message, $aditionalInfo = "\e") {
         if ($this->level >= 5) {
+            if ($aditionalInfo != "\e") {
+                $message = $this->_printfSpecial($message, $aditionalInfo);
+            }
             $this->log->addEntry(array('priority' => 16, 'comment' => $message));
         }
     }
@@ -145,9 +162,12 @@ class JDLibLog {
      * Error information
      * @return void
      */
-    public function error($message) {
+    public function error($message, $aditionalInfo = "\e") {
         if ($this->level >= 4) {
-            $this->log->addEntry(array('priority' => 16, 'comment' => $message));
+            if ($aditionalInfo != "\e") {
+                $message = $this->_printfSpecial($message, $aditionalInfo);
+            }
+            $this->log->addEntry(array('priority' => 8, 'comment' => $message));
         }
     }
 
@@ -155,8 +175,11 @@ class JDLibLog {
      * Critical information
      * @return void
      */
-    public function critical($message) {
+    public function critical($message, $aditionalInfo = "\e") {
         if ($this->level >= 3) {
+            if ($aditionalInfo != "\e") {
+                $message = $this->_printfSpecial($message, $aditionalInfo);
+            }
             $this->log->addEntry(array('priority' => 4, 'comment' => $message));
         }
     }
@@ -165,8 +188,11 @@ class JDLibLog {
      * Alert information
      * @return void
      */
-    public function alert($message) {
+    public function alert($message, $aditionalInfo = "\e") {
         if ($this->level >= 2) {
+            if ($aditionalInfo != "\e") {
+                $message = $this->_printfSpecial($message, $aditionalInfo);
+            }
             $this->log->addEntry(array('priority' => 2, 'comment' => $message));
         }
     }
@@ -175,12 +201,15 @@ class JDLibLog {
      * Critical information
      * @return void
      */
-    public function emergency($message) {
+    public function emergency($message, $aditionalInfo = "\e") {
         if ($this->level >= 1) {
+            if ($aditionalInfo != "\e") {
+                $message = $this->_printfSpecial($message, $aditionalInfo);
+            }
             $this->log->addEntry(array('priority' => 1, 'comment' => $message));
         }
     }
-
+    
     /**
      * Add a custom log
      * 
@@ -222,6 +251,24 @@ class JDLibLog {
     public function set($name, $value) {
         $this->$name = $value;
         return $this;
+    }
+
+    /**
+     * Receive one string and one mixed var, encode this var like JSON and
+     * try find for a %s on $message; if found, replease with encoded var, else
+     * will just add at the end of $message
+     * 
+     * @param string $message
+     * @param mixed $var
+     * @return string $result
+     */
+    private function _printfSpecial($message, $var) {
+        if(strpos($message,'%s')=== FALSE){
+            $result = $message . ' ' . json_encode($var);
+        } else {
+            $result = str_replace('%s', json_encode($var), $message);
+        }        
+        return $result;
     }
 
 }

@@ -4,8 +4,8 @@
     version="1.7" 
     method="upgrade"
     >
-    <libraryname>DEBUG</libraryname>
-    <name>JDLIB_NAME</name>
+    <libraryname>debug</libraryname>
+    <name>debug</name>
     <description>JDLIB_DESCRIPTION</description>
     <creationDate>2011-11-26</creationDate>
     <author>Emerson Rocha Luiz</author>
@@ -13,7 +13,7 @@
     <authorUrl>http://fititnt.org</authorUrl>
     <copyright>Copyright (C) 2011 Webdesign Assessoria em Tecniligia da Informacao. All rights reserved.</copyright>
     <license>GNU General Public License version 3. See license.txt</license>
-    <version>0.1alpha</version>
+    <version>0.4rc2</version>
     <files>
         <file>debug.php</file>
         <file>debug.xml</file>
